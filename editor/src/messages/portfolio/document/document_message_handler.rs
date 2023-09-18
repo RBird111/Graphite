@@ -42,6 +42,7 @@ pub struct DocumentMessageHandler {
 
 	pub document_mode: DocumentMode,
 	pub view_mode: ViewMode,
+	pub rulers_visible: bool,
 	#[serde(skip)]
 	pub snapping_state: SnappingState,
 	pub overlays_visible: bool,
@@ -82,6 +83,7 @@ impl Default for DocumentMessageHandler {
 
 			document_mode: DocumentMode::DesignMode,
 			view_mode: ViewMode::default(),
+			rulers_visible: true,
 			snapping_state: SnappingState::default(),
 			overlays_visible: true,
 
@@ -852,6 +854,9 @@ impl MessageHandler<DocumentMessage, (u64, &InputPreprocessorMessageHandler, &Pe
 				responses.add(BroadcastEvent::ToolAbort);
 				responses.add(OverlaysMessage::ClearAllOverlays);
 				responses.add(OverlaysMessage::Rerender);
+			}
+			SetRulersVisible { visible } => {
+				self.rulers_visible = visible;
 			}
 			SetSelectedLayers { replacement_selected_layers } => {
 				let selected = self.layer_metadata.iter_mut().filter(|(_, layer_metadata)| layer_metadata.selected);

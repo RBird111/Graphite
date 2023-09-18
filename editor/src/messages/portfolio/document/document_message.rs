@@ -171,6 +171,9 @@ pub enum DocumentMessage {
 	SetOverlaysVisibility {
 		visible: bool,
 	},
+	SetRulersVisible {
+		visible: bool,
+	},
 	SetSelectedLayers {
 		replacement_selected_layers: Vec<Vec<LayerId>>,
 	},
